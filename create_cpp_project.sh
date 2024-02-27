@@ -3,6 +3,22 @@
 create_and_setup_project_dir()
 {
 
+  # Check if directory already exists.
+  if [ -d $1/$2 ];
+    then
+      # Ask user for permission to delete and recreate the directory.
+      echo "Directory already exists. Delete and recreate?"
+      read delete
+
+      if [ "$delete" == "y" ];
+        then
+          rm -rf $1/$2;
+        else
+          exit 1;
+      fi 
+
+  fi
+
   mkdir -p $1/$2/include/$2 $1/$2/src
 
   touch $1/$2/CMakeLists.txt
